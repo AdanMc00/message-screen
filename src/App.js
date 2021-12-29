@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import io from 'socket.io-client'
-let socket = io('http://localhost:8080')
+let socket = io('https://fastfoodrt.herokuapp.com/')  // http://localhost:8080
 function App() {
   const [allOrders, setAllOrders] = useState([])
 socket.on('newOrders', function (data) {
