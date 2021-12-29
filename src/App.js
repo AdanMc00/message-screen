@@ -1,22 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, {useState, useEffect} from 'react';
+import io from 'socket.io-client'
+let socket = io('http://localhost:8080')
 function App() {
+  const [allOrders, setAllOrders] = useState([])
+socket.on('newOrders', function (data) {
+  setAllOrders([...allOrders, data])
+});
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div >
+      <header>
+         Huevos!
+         <h1>
+           {
+            allOrders.length > 0 ? allOrders.map((item,key)=>(
+                <ul>
+                  <li>
+                   <div>
+                   direccion: {item.address}
+                   </div>
+                   <div>
+                   fecha: {item.date}
+                   </div>
+                   <div>
+                   total:{item.amount}
+                   </div>
+                   <div>
+                   productos:{item.products}
+                   </div>
+                  </li>
+                </ul>
+            )) : null
+           }
+         </h1>
       </header>
     </div>
   );
